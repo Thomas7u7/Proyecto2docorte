@@ -1,3 +1,7 @@
+En esta aplicación web permite reconocer números manuscritos usando una red neuronal en la nube.
+El usuario sube una imagen de un dígito (28×28 px), la aplicación la procesa y envía a la API, que devuelve la predicción del número, su precisión y el tiempo de respuesta.
+
+
 --Instrucciones para instalar dependencias para la correcta ejecucion del Programa
 1. Primero asegurate de tener node.js en tu PC (Incluye npm)
 
