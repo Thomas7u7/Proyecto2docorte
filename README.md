@@ -1,73 +1,33 @@
-# React + TypeScript + Vite
+--Instrucciones para instalar dependencias para la correcta ejecucion del Programa
+1. Primero asegurate de tener node.js en tu PC (Incluye npm)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+>En la terminal de tu portatil (Bash o cmd), para verificar si esta instalado, de lo contrario descargalo a traves de la pagina de node.js
+```ruby
+node -v
+npm -v
 ```
+2. Crea un proyecto con Vite
+En la terminal de VS Code (o CMD en la carpeta donde quieres el proyecto)
+```ruby
+npm create vite@latest nombre-proyecto
+```
+En ese mismo codigo te dara a elegir el framework, en este caso Escogeremos react y lenguaje Typescript, despues, te dara a escoger si quieres la herramienta "Rolldown", en este caso diremos que no.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+3. Ahora entra a la Carpeta de tu proyecto ,instala npm y correlo
+```ruby
+cd mi-proyecto
+npm install
+npm run dev
+```
+4.Como Abro la Carpeta de mi Proyecto?
+>Facil desde CMD
+```ruby 
+cd mi-proyecto
+code .
+```
+Por defecto abrira Visual Code studio con la carpeta de tu proyecto
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+5. Dentro de la carpeta del proyecto, debes instalar una Libreria de react para el correcto funcionamiento de la app web
+```ruby 
+npm install react-router-dom
 ```
