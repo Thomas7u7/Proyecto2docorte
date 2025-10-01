@@ -6,7 +6,7 @@ interface ImageRecognitionResponse {
   accuracy: number;
 }
 
-/** Detecta si el fondo es claro u oscuro (muestra esquinas) y decide "invert" */
+
 function guessInvertFromCorners(ctx: CanvasRenderingContext2D): "true" | "false" {
   const pts = [
     ctx.getImageData(1, 1, 1, 1).data,
@@ -20,12 +20,11 @@ function guessInvertFromCorners(ctx: CanvasRenderingContext2D): "true" | "false"
     sum += y;
   }
   const avg = sum / pts.length;
-  // Fondo claro → número oscuro → invert = "false"
-  // Fondo oscuro → número claro → invert = "true"
+
   return avg > 128 ? "false" : "true";
 }
 
-/** Reescala manteniendo proporción, centra con margen ~4px y pasa a escala de grises */
+
 async function to28x28(file: File): Promise<{ image: File; canvasForCheck: HTMLCanvasElement }> {
   const img = new Image();
   img.src = URL.createObjectURL(file);
@@ -34,18 +33,17 @@ async function to28x28(file: File): Promise<{ image: File; canvasForCheck: HTMLC
     img.onerror = () => rej(new Error("No se pudo cargar la imagen"));
   });
 
-  // Lienzo final 28x28
+
   const canvas = document.createElement("canvas");
   canvas.width = 28;
   canvas.height = 28;
   const ctx = canvas.getContext("2d");
   if (!ctx) throw new Error("Canvas no soportado");
 
-  // Fondo blanco por defecto
+ 
   ctx.fillStyle = "#fff";
   ctx.fillRect(0, 0, 28, 28);
 
-  // Mantener proporción y dejar margen (ajustar dentro de 20x20)
   const target = 20;
   const scale = Math.min(target / img.width, target / img.height);
   const drawW = Math.max(1, Math.round(img.width * scale));
@@ -54,11 +52,11 @@ async function to28x28(file: File): Promise<{ image: File; canvasForCheck: HTMLC
   const dy = Math.floor((28 - drawH) / 2);
 
   ctx.imageSmoothingEnabled = true;
-  // @ts-ignore
+  
   ctx.imageSmoothingQuality = "high";
   ctx.drawImage(img, dx, dy, drawW, drawH);
 
-  // Escala de grises + contraste
+  
   const imgData = ctx.getImageData(0, 0, 28, 28);
   const d = imgData.data;
   const contrast = 1.25;
@@ -96,10 +94,10 @@ function App() {
     setResult(null);
 
     try {
-      // 1) Preprocesar
+      
       const { image: processed, canvasForCheck } = await to28x28(file);
 
-      // 2) Calcular invert automáticamente si está activo
+    
       let invertToSend: "true" | "false" = invert;
       if (autoInvert) {
         const ctx = canvasForCheck.getContext("2d");
@@ -107,7 +105,6 @@ function App() {
         invertToSend = guessInvertFromCorners(ctx);
       }
 
-      // 3) Enviar a la API
       const formData = new FormData();
       formData.append("invert", invertToSend);   // "true" o "false"
       formData.append("image", processed);       // PNG 28x28
@@ -121,7 +118,7 @@ function App() {
       const data: ImageRecognitionResponse = await res.json();
       setResult(data);
 
-      // Guardar historial
+      
       const history = JSON.parse(localStorage.getItem("history") || "[]");
       history.push({ ...data, invert: invertToSend, ts: Date.now() });
       localStorage.setItem("history", JSON.stringify(history));
@@ -174,7 +171,7 @@ function App() {
           }}
         />
 
-        {/* Selector manual de invert (por si desactivas Auto) */}
+        {/**/}
         <select
           value={invert}
           onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
